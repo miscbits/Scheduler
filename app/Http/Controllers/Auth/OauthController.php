@@ -47,16 +47,20 @@ class OAuthController extends Controller
      */
     public function findOrCreateUser($user, $provider)
     {
-        $authUser = User::where(['provider_id' => $user->id, 'provider' => $provider])->first();
+        $prop = $provider . '_id';
+        $authUser = User::where('email', $user->email)->first();
         if ($authUser) {
+            if($authUser->$prop == $user->id) {
+                $authUser->$prop = $user->id;
+                $authUser->save();
+            }
             return $authUser;
         }
 
         return User::create([
             'name'     => $user->name,
             'email'    => $user->email,
-            'provider' => $provider,
-            'provider_id' => $user->id
+            $prop => $provider,
         ]);
     }
 }
