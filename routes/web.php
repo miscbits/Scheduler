@@ -21,3 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('auth/{provider}', 'Auth\OauthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\OauthController@handleProviderCallback');
+
+Route::get('/privacy_policy', function () {
+    return view('privacy_policy');
+});
