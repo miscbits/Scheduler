@@ -50,7 +50,7 @@ class OAuthController extends Controller
         $prop = $provider . '_id';
         $authUser = User::where('email', $user->email)->first();
         if ($authUser) {
-            if($authUser->$prop == $user->id) {
+            if($authUser->$prop != $user->id) {
                 $authUser->$prop = $user->id;
                 $authUser->save();
             }
